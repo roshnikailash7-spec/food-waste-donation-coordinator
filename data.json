@@ -1,0 +1,512 @@
+{
+  "donors": [
+    {
+      "id": "DONOR_01",
+      "name": "GreenBite Bakery & Deli",
+      "location": "Downtown Central",
+      "contact": "+1 (555) 234-5671",
+      "type": "Bakery / Deli"
+    },
+    {
+      "id": "DONOR_02",
+      "name": "Metro Fresh Supermarket",
+      "location": "North End Market",
+      "contact": "+1 (555) 345-6782",
+      "type": "Supermarket"
+    },
+    {
+      "id": "DONOR_03",
+      "name": "Grand Plaza Hotel & Banquets",
+      "location": "Midtown Boulevard",
+      "contact": "+1 (555) 456-7893",
+      "type": "Hotel / Catering"
+    },
+    {
+      "id": "DONOR_04",
+      "name": "Sunrise Valley Organic Farm",
+      "location": "East Suburbs",
+      "contact": "+1 (555) 567-8904",
+      "type": "Farm Produce"
+    },
+    {
+      "id": "DONOR_05",
+      "name": "Daily Crust Artisan Pizzeria",
+      "location": "West University Campus",
+      "contact": "+1 (555) 678-9015",
+      "type": "Restaurant"
+    }
+  ],
+  "ngos": [
+    {
+      "id": "NGO_01",
+      "name": "Hope Community Shelter",
+      "location": "Old Town Haven",
+      "capacity": 150,
+      "remaining_capacity": 150.0,
+      "contact": "+1 (555) 890-1234",
+      "serves": "Unhoused individuals & families"
+    },
+    {
+      "id": "NGO_02",
+      "name": "Grace Regional Food Bank",
+      "location": "Harbor District",
+      "capacity": 250,
+      "remaining_capacity": 250,
+      "contact": "+1 (555) 901-2345",
+      "serves": "Regional pantry network"
+    },
+    {
+      "id": "NGO_03",
+      "name": "Mercy Soup Kitchen",
+      "location": "South Riverside",
+      "capacity": 120,
+      "remaining_capacity": 120,
+      "contact": "+1 (555) 012-3456",
+      "serves": "Daily hot community meals"
+    },
+    {
+      "id": "NGO_04",
+      "name": "Children's Nourish Foundation",
+      "location": "Civic Center",
+      "capacity": 180,
+      "remaining_capacity": 180,
+      "contact": "+1 (555) 123-4567",
+      "serves": "After-school nutrition programs"
+    },
+    {
+      "id": "NGO_05",
+      "name": "ElderCare Haven & Pantry",
+      "location": "Pine Hills",
+      "capacity": 90,
+      "remaining_capacity": 90,
+      "contact": "+1 (555) 234-5678",
+      "serves": "Senior citizens & homebound"
+    }
+  ],
+  "food_items": [
+    {
+      "id": "FOOD_04",
+      "name": "Steamed Basmati Rice & Veg Curry",
+      "donor_id": "DONOR_03",
+      "donor_name": "Grand Plaza Hotel & Banquets",
+      "donor_location": "Midtown Boulevard",
+      "quantity": 60,
+      "unit": "kg",
+      "expiry_hours": 4.0,
+      "category": "Cooked Meals",
+      "status": "AVAILABLE",
+      "created_at": "2026-10-05 17:45"
+    },
+    {
+      "id": "FOOD_05",
+      "name": "Organic Whole Milk & Yogurt Tubs",
+      "donor_id": "DONOR_02",
+      "donor_name": "Metro Fresh Supermarket",
+      "donor_location": "North End Market",
+      "quantity": 45,
+      "unit": "kg",
+      "expiry_hours": 14.0,
+      "category": "Dairy",
+      "status": "AVAILABLE",
+      "created_at": "2026-10-05 15:00"
+    },
+    {
+      "id": "FOOD_06",
+      "name": "Assorted Garden Salads & Dressings",
+      "donor_id": "DONOR_03",
+      "donor_name": "Grand Plaza Hotel & Banquets",
+      "donor_location": "Midtown Boulevard",
+      "quantity": 20,
+      "unit": "kg",
+      "expiry_hours": 5.5,
+      "category": "Prepared Meals",
+      "status": "AVAILABLE",
+      "created_at": "2026-10-05 18:15"
+    },
+    {
+      "id": "FOOD_07",
+      "name": "Wood-fired Margherita Pizzas",
+      "donor_id": "DONOR_05",
+      "donor_name": "Daily Crust Artisan Pizzeria",
+      "donor_location": "West University Campus",
+      "quantity": 30,
+      "unit": "kg",
+      "expiry_hours": 2.0,
+      "category": "Cooked Meals",
+      "status": "AVAILABLE",
+      "created_at": "2026-10-05 18:30",
+      "completed_at": "2026-10-05 21:38:01"
+    },
+    {
+      "id": "FOOD_08",
+      "name": "Hearty Lentil Soup & Canned Beans",
+      "donor_id": "DONOR_02",
+      "donor_name": "Metro Fresh Supermarket",
+      "donor_location": "North End Market",
+      "quantity": 75,
+      "unit": "kg",
+      "expiry_hours": 120.0,
+      "category": "Packaged Goods",
+      "status": "AVAILABLE",
+      "created_at": "2026-10-05 10:00"
+    },
+    {
+      "id": "FOOD_09",
+      "name": "Fresh Harvest Spinach & Vine Tomatoes",
+      "donor_id": "DONOR_04",
+      "donor_name": "Sunrise Valley Organic Farm",
+      "donor_location": "East Suburbs",
+      "quantity": 40,
+      "unit": "kg",
+      "expiry_hours": 24.0,
+      "category": "Produce",
+      "status": "AVAILABLE",
+      "created_at": "2026-10-05 14:00"
+    },
+    {
+      "id": "FOOD_10",
+      "name": "Blueberry Muffins & Croissants",
+      "donor_id": "DONOR_05",
+      "donor_name": "Daily Crust Artisan Pizzeria",
+      "donor_location": "West University Campus",
+      "quantity": 18,
+      "unit": "kg",
+      "expiry_hours": 10.0,
+      "category": "Bakery",
+      "status": "AVAILABLE",
+      "created_at": "2026-10-05 17:00"
+    },
+    {
+      "id": "FOOD_01",
+      "name": "Fresh Sandwich Platters",
+      "donor_id": "DONOR_01",
+      "donor_name": "GreenBite Bakery & Deli",
+      "donor_location": "Downtown Central",
+      "quantity": 35,
+      "unit": "kg",
+      "expiry_hours": 3.5,
+      "category": "Prepared Meals",
+      "status": "AVAILABLE",
+      "created_at": "2026-10-05 18:00"
+    },
+    {
+      "id": "FOOD_02",
+      "name": "Crisp Apples & Sweet Bananas",
+      "donor_id": "DONOR_04",
+      "donor_name": "Sunrise Valley Organic Farm",
+      "donor_location": "East Suburbs",
+      "quantity": 80,
+      "unit": "kg",
+      "expiry_hours": 48.0,
+      "category": "Produce",
+      "status": "AVAILABLE",
+      "created_at": "2026-10-05 12:00"
+    },
+    {
+      "id": "FOOD_03",
+      "name": "Artisan Sourdough & Multigrain Loaves",
+      "donor_id": "DONOR_01",
+      "donor_name": "GreenBite Bakery & Deli",
+      "donor_location": "Downtown Central",
+      "quantity": 25,
+      "unit": "kg",
+      "expiry_hours": 8.0,
+      "category": "Bakery",
+      "status": "AVAILABLE",
+      "created_at": "2026-10-05 16:30"
+    }
+  ],
+  "pickup_queue": [],
+  "history": [
+    {
+      "id": "HIST_1791216481076",
+      "action_type": "ACTION_UNDONE",
+      "title": "Undo Action Executed",
+      "description": "Action 'ADD_FOOD' was reversed: Removed listed food item 'Fresh Baked Apple Pies'.",
+      "timestamp": "2026-10-05 21:38:01",
+      "badge": "info"
+    },
+    {
+      "id": "HIST_1791216481074",
+      "action_type": "FOOD_ADDED",
+      "title": "Surplus Food Listed",
+      "description": "GreenBite Bakery & Deli listed 15.0 kg of 'Fresh Baked Apple Pies' (Expires in 6.0h).",
+      "timestamp": "2026-10-05 21:38:01",
+      "badge": "success"
+    },
+    {
+      "id": "HIST_1791216481071",
+      "action_type": "ACTION_UNDONE",
+      "title": "Undo Action Executed",
+      "description": "Action 'AUTO_MATCH' was reversed: Reverted auto-match for 'Wood-fired Margherita Pizzas'. Restored to priority heap.",
+      "timestamp": "2026-10-05 21:38:01",
+      "badge": "info"
+    },
+    {
+      "id": "HIST_1791216481070",
+      "action_type": "ACTION_UNDONE",
+      "title": "Undo Action Executed",
+      "description": "Action 'COMPLETE_PICKUP' was reversed: Reopened completed pickup #PKUP_81063 back into dispatch queue.",
+      "timestamp": "2026-10-05 21:38:01",
+      "badge": "info"
+    },
+    {
+      "id": "HIST_1791216481068",
+      "action_type": "PICKUP_COMPLETED",
+      "title": "Food Delivered Successfully",
+      "description": "Pickup #PKUP_81063 delivered: 30.0 kg of 'Wood-fired Margherita Pizzas' transferred from Daily Crust Artisan Pizzeria to Hope Community Shelter.",
+      "timestamp": "2026-10-05 21:38:01",
+      "badge": "success"
+    },
+    {
+      "id": "HIST_1791216481063",
+      "action_type": "AUTO_MATCHED",
+      "title": "Optimal Food Match Made",
+      "description": "Prioritized 'Wood-fired Margherita Pizzas' (30.0 kg, expires in 2.0h). Dijkstra routed to 'Hope Community Shelter' via [West University Campus -> Old Town Haven] (2.9 km).",
+      "timestamp": "2026-10-05 21:38:01",
+      "badge": "warning"
+    },
+    {
+      "id": "HIST_1791216265767",
+      "action_type": "ACTION_UNDONE",
+      "title": "Undo Action Executed",
+      "description": "Action 'ADD_FOOD' was reversed: Removed listed food item 'Fresh Baked Apple Pies'.",
+      "timestamp": "2026-10-05 21:34:25",
+      "badge": "info"
+    },
+    {
+      "id": "HIST_1791216265762",
+      "action_type": "FOOD_ADDED",
+      "title": "Surplus Food Listed",
+      "description": "GreenBite Bakery & Deli listed 15.0 kg of 'Fresh Baked Apple Pies' (Expires in 6.0h).",
+      "timestamp": "2026-10-05 21:34:25",
+      "badge": "success"
+    },
+    {
+      "id": "HIST_1791216265753",
+      "action_type": "ACTION_UNDONE",
+      "title": "Undo Action Executed",
+      "description": "Action 'AUTO_MATCH' was reversed: Reverted auto-match for 'Wood-fired Margherita Pizzas'. Restored to priority heap.",
+      "timestamp": "2026-10-05 21:34:25",
+      "badge": "info"
+    },
+    {
+      "id": "HIST_1791216265746",
+      "action_type": "ACTION_UNDONE",
+      "title": "Undo Action Executed",
+      "description": "Action 'COMPLETE_PICKUP' was reversed: Reopened completed pickup #PKUP_65729 back into dispatch queue.",
+      "timestamp": "2026-10-05 21:34:25",
+      "badge": "info"
+    },
+    {
+      "id": "HIST_1791216265739",
+      "action_type": "PICKUP_COMPLETED",
+      "title": "Food Delivered Successfully",
+      "description": "Pickup #PKUP_65729 delivered: 30.0 kg of 'Wood-fired Margherita Pizzas' transferred from Daily Crust Artisan Pizzeria to Hope Community Shelter.",
+      "timestamp": "2026-10-05 21:34:25",
+      "badge": "success"
+    },
+    {
+      "id": "HIST_1791216265729",
+      "action_type": "AUTO_MATCHED",
+      "title": "Optimal Food Match Made",
+      "description": "Prioritized 'Wood-fired Margherita Pizzas' (30.0 kg, expires in 2.0h). Dijkstra routed to 'Hope Community Shelter' via [West University Campus -> Old Town Haven] (2.9 km).",
+      "timestamp": "2026-10-05 21:34:25",
+      "badge": "warning"
+    },
+    {
+      "id": "HIST_INIT",
+      "action_type": "SYSTEM_START",
+      "title": "System Initialized",
+      "description": "5 verified donors, 5 partner NGOs, and initial road network loaded.",
+      "timestamp": "2026-10-05 18:00:00",
+      "badge": "info"
+    }
+  ],
+  "undo_stack": [],
+  "graph_nodes": [
+    {
+      "id": "Downtown Central",
+      "label": "Downtown Central",
+      "type": "donor",
+      "x": 25,
+      "y": 38
+    },
+    {
+      "id": "North End Market",
+      "label": "North End Market",
+      "type": "donor",
+      "x": 22,
+      "y": 14
+    },
+    {
+      "id": "Midtown Boulevard",
+      "label": "Midtown Boulevard",
+      "type": "donor",
+      "x": 50,
+      "y": 42
+    },
+    {
+      "id": "East Suburbs",
+      "label": "East Suburbs",
+      "type": "donor",
+      "x": 86,
+      "y": 24
+    },
+    {
+      "id": "West University Campus",
+      "label": "West University",
+      "type": "donor",
+      "x": 14,
+      "y": 68
+    },
+    {
+      "id": "Central City Junction",
+      "label": "Central Junction",
+      "type": "transit",
+      "x": 38,
+      "y": 32
+    },
+    {
+      "id": "South Bridge Interchange",
+      "label": "South Bridge",
+      "type": "transit",
+      "x": 42,
+      "y": 66
+    },
+    {
+      "id": "East Ring Road Crossroads",
+      "label": "East Ring Hub",
+      "type": "transit",
+      "x": 70,
+      "y": 44
+    },
+    {
+      "id": "Old Town Haven",
+      "label": "Old Town Haven",
+      "type": "ngo",
+      "x": 32,
+      "y": 86
+    },
+    {
+      "id": "Harbor District",
+      "label": "Harbor District",
+      "type": "ngo",
+      "x": 82,
+      "y": 78
+    },
+    {
+      "id": "South Riverside",
+      "label": "South Riverside",
+      "type": "ngo",
+      "x": 58,
+      "y": 88
+    },
+    {
+      "id": "Civic Center",
+      "label": "Civic Center",
+      "type": "ngo",
+      "x": 56,
+      "y": 18
+    },
+    {
+      "id": "Pine Hills",
+      "label": "Pine Hills",
+      "type": "ngo",
+      "x": 88,
+      "y": 56
+    }
+  ],
+  "graph_edges": [
+    {
+      "source": "Downtown Central",
+      "target": "Central City Junction",
+      "weight": 2.1
+    },
+    {
+      "source": "Downtown Central",
+      "target": "West University Campus",
+      "weight": 3.9
+    },
+    {
+      "source": "North End Market",
+      "target": "Central City Junction",
+      "weight": 4.2
+    },
+    {
+      "source": "North End Market",
+      "target": "Civic Center",
+      "weight": 3.8
+    },
+    {
+      "source": "Midtown Boulevard",
+      "target": "Central City Junction",
+      "weight": 2.4
+    },
+    {
+      "source": "Midtown Boulevard",
+      "target": "East Ring Road Crossroads",
+      "weight": 3.3
+    },
+    {
+      "source": "East Suburbs",
+      "target": "Civic Center",
+      "weight": 4.5
+    },
+    {
+      "source": "East Suburbs",
+      "target": "East Ring Road Crossroads",
+      "weight": 3.7
+    },
+    {
+      "source": "West University Campus",
+      "target": "South Bridge Interchange",
+      "weight": 3.1
+    },
+    {
+      "source": "West University Campus",
+      "target": "Old Town Haven",
+      "weight": 2.9
+    },
+    {
+      "source": "Central City Junction",
+      "target": "Civic Center",
+      "weight": 2.8
+    },
+    {
+      "source": "Central City Junction",
+      "target": "South Bridge Interchange",
+      "weight": 3.6
+    },
+    {
+      "source": "South Bridge Interchange",
+      "target": "Old Town Haven",
+      "weight": 2.5
+    },
+    {
+      "source": "South Bridge Interchange",
+      "target": "South Riverside",
+      "weight": 2.7
+    },
+    {
+      "source": "East Ring Road Crossroads",
+      "target": "Pine Hills",
+      "weight": 2.2
+    },
+    {
+      "source": "East Ring Road Crossroads",
+      "target": "Harbor District",
+      "weight": 4.1
+    },
+    {
+      "source": "Harbor District",
+      "target": "South Riverside",
+      "weight": 3.9
+    },
+    {
+      "source": "Harbor District",
+      "target": "Pine Hills",
+      "weight": 2.8
+    }
+  ]
+}

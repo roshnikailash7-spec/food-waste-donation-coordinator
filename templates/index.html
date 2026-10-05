@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Waste Reduction & Donation Coordinator | College DSA Project</title>
+  <meta name="description" content="Intelligent food donation matching and waste reduction platform powered by 8 custom data structures implemented from scratch in pure Python.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Top Navigation Bar -->
+  <header class="navbar" id="mainNavbar">
+    <div class="nav-container">
+      <div class="brand-group">
+        <div class="logo-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10c0 4.418-2.865 8.166-6.839 9.489-.5.093-.683-.217-.683-.483v-1.705c0-.584-.199-1.009-.427-1.233 2.766-.312 5.674-1.384 5.674-6.155 0-1.36-.486-2.47-1.282-3.342.128-.314.556-1.577-.122-3.284 0 0-1.045-.334-3.425 1.275a11.95 11.95 0 0 0-6.248 0C6.31 4.78 5.265 5.114 5.265 5.114c-.678 1.707-.25 2.97-.122 3.284-.796.872-1.282 1.982-1.282 3.342 0 4.781 2.908 5.833 5.674 6.155-.178.176-.341.488-.398.943-.358.16-1.267.438-1.826-.522-.338-.588-.971-.806-1.394-.811-.476-.006-.062.274.34.463.489.23 1.054 1.109 1.194 1.393.308.625 1.05.86 2.086.643v1.336c0 .269-.186.58-.69.482C4.865 20.166 2 16.418 2 12A10 10 0 0 1 12 2z"/></svg>
+        </div>
+        <div>
+          <h1 class="brand-title">NourishLink</h1>
+          <p class="brand-subtitle">Food Waste Reduction &amp; Donation Coordinator</p>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#dashboard" class="nav-link active" data-section="dashboard">Dashboard</a>
+        <a href="#foodInventory" class="nav-link" data-section="foodInventory">Surplus Food</a>
+        <a href="#matchingSection" class="nav-link" data-section="matchingSection">Auto-Match &amp; Route</a>
+        <a href="#pickupSection" class="nav-link" data-section="pickupSection">Pickup Queue</a>
+        <a href="#partnersSection" class="nav-link" data-section="partnersSection">Donors &amp; NGOs</a>
+        <a href="#searchSection" class="nav-link" data-section="searchSection">Search &amp; Sort</a>
+        <a href="#historySection" class="nav-link" data-section="historySection">History</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Undo Button (LIFO Stack) -->
+        <button id="undoBtn" class="btn btn-outline" title="Pop last action from Stack (LIFO)" disabled>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/></svg>
+          <span>Undo</span>
+          <span id="undoBadge" class="badge-count" style="display:none;">0</span>
+        </button>
+
+        <!-- Viva DSA Guide Modal Trigger -->
+        <button id="dsaGuideBtn" class="btn btn-secondary" title="View Viva-friendly DSA Architecture Explanation">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <span>DSA Spec</span>
+        </button>
+
+        <!-- Reset Seed Data -->
+        <button id="resetDataBtn" class="btn btn-ghost" title="Reset to default 5 Donors, 5 NGOs, 10 Food items">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-content">
+    
+    <!-- Hero / DSA Banner -->
+    <section class="hero-strip">
+      <div class="hero-pill">
+        <span class="pulse-dot"></span>
+        <span>College DSA Final Project &bull; Pure Python &bull; 8 Data Structures Implemented From Scratch</span>
+      </div>
+      <div class="dsa-tag-chips">
+        <span class="dsa-chip">1. Min-Heap (Expiry Priority)</span>
+        <span class="dsa-chip">2. Hash Table (Chaining Lookups)</span>
+        <span class="dsa-chip">3. Linked List (Audit Trail)</span>
+        <span class="dsa-chip">4. FIFO Queue (Pickups)</span>
+        <span class="dsa-chip">5. Stack (Undo Rollback)</span>
+        <span class="dsa-chip">6. Graph + Dijkstra (Shortest Route)</span>
+        <span class="dsa-chip">7. Merge Sort (Inventory)</span>
+        <span class="dsa-chip">8. Binary Search (O(log N) Query)</span>
+      </div>
+    </section>
+
+    <!-- SECTION 1: DASHBOARD METRICS -->
+    <section id="dashboard" class="content-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Operations Dashboard</h2>
+          <p class="section-desc">Real-time surplus food recovery, live priority heap status, and volunteer dispatches.</p>
+        </div>
+        <div class="header-btns">
+          <button class="btn btn-primary" id="openAddFoodModalBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            <span>List Surplus Food</span>
+          </button>
+          <button class="btn btn-accent" id="triggerAutoMatchBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"/><path d="m14 7 3 3"/></svg>
+            <span>Auto-Match Most Urgent</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Stat Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card card-emerald">
+          <div class="kpi-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Total Food Saved</span>
+            <div class="kpi-value"><span id="kpiFoodSaved">0</span> <span class="kpi-unit">kg</span></div>
+            <span class="kpi-hint">Diverted from waste</span>
+          </div>
+        </div>
+
+        <div class="kpi-card card-amber">
+          <div class="kpi-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Expiring Soon (&lt;6h)</span>
+            <div class="kpi-value" id="kpiUrgentItems">0</div>
+            <span class="kpi-hint">Top of Min-Heap</span>
+          </div>
+        </div>
+
+        <div class="kpi-card card-teal">
+          <div class="kpi-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Pending Pickups</span>
+            <div class="kpi-value" id="kpiPendingPickups">0</div>
+            <span class="kpi-hint">In FIFO Queue</span>
+          </div>
+        </div>
+
+        <div class="kpi-card card-blue">
+          <div class="kpi-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="kpi-content">
+            <span class="kpi-label">Active Network</span>
+            <div class="kpi-value"><span id="kpiDonors">5</span> / <span id="kpiNgos">5</span></div>
+            <span class="kpi-hint">Donors &bull; NGOs (Hash Table)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spotlight Banner: Min-Heap Root & Next FIFO Pickup -->
+      <div class="spotlight-row">
+        <!-- Min-Heap Top Item Card -->
+        <div class="spotlight-card heap-spotlight">
+          <div class="spotlight-header">
+            <span class="badge-dsa">Min-Heap Peek &bull; O(1)</span>
+            <span class="spotlight-tag urgent">Most Urgent Batch</span>
+          </div>
+          <div id="heapRootContent" class="spotlight-body">
+            <div class="loading-spinner"></div>
+          </div>
+        </div>
+
+        <!-- FIFO Queue Front Item Card -->
+        <div class="spotlight-card queue-spotlight">
+          <div class="spotlight-header">
+            <span class="badge-dsa">FIFO Queue Peek &bull; O(1)</span>
+            <span class="spotlight-tag">Next Pickup in Line</span>
+          </div>
+          <div id="queueFrontContent" class="spotlight-body">
+            <div class="loading-spinner"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: SURPLUS FOOD INVENTORY -->
+    <section id="foodInventory" class="content-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Surplus Food Inventory</h2>
+          <p class="section-desc">Managed via <strong>Min-Heap</strong> for expiry urgency and <strong>Merge Sort</strong> for custom ordering.</p>
+        </div>
+        <div class="header-btns">
+          <button class="btn btn-outline" id="viewHeapModalBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m18 15-6-6-6 6"/></svg>
+            <span>Inspect Priority Heap</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter and Sort Controls -->
+      <div class="controls-panel">
+        <div class="filter-group">
+          <label>Status Filter:</label>
+          <div class="tab-pills" id="foodStatusFilter">
+            <button class="tab-pill active" data-status="ALL">All Items</button>
+            <button class="tab-pill" data-status="AVAILABLE">Available</button>
+            <button class="tab-pill" data-status="RESERVED">Reserved</button>
+            <button class="tab-pill" data-status="COMPLETED">Delivered</button>
+          </div>
+        </div>
+
+        <div class="sort-group">
+          <label for="foodSortBy">Sort Algorithm (Merge Sort):</label>
+          <select id="foodSortBy" class="select-input">
+            <option value="expiry_asc">Expiry (Soonest First &bull; Urgent)</option>
+            <option value="expiry_desc">Expiry (Longest Remaining)</option>
+            <option value="qty_desc">Quantity (Largest Batches First)</option>
+            <option value="qty_asc">Quantity (Smallest Batches First)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Food Items Grid -->
+      <div id="foodGrid" class="cards-grid">
+        <!-- Rendered dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 3: AUTO-MATCHING & ROUTE MAP (GRAPH + DIJKSTRA) -->
+    <section id="matchingSection" class="content-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Automated Matching &amp; Dijkstra Route Visualizer</h2>
+          <p class="section-desc">Pulls the most critical food batch from the <strong>Min-Heap</strong> and calculates the shortest road route to an eligible NGO using <strong>Dijkstra's Algorithm</strong> on the city <strong>Adjacency List Graph</strong>.</p>
+        </div>
+        <button class="btn btn-accent btn-large" id="actionMatchBtn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Run Auto-Match</span>
+        </button>
+      </div>
+
+      <div class="matcher-layout">
+        <!-- Road Network Interactive Canvas / Map -->
+        <div class="map-card">
+          <div class="map-toolbar">
+            <span class="map-title">City Transportation Graph &bull; Adjacency List</span>
+            <div class="map-legend">
+              <span class="legend-item"><span class="legend-dot donor"></span> Donor</span>
+              <span class="legend-item"><span class="legend-dot ngo"></span> NGO</span>
+              <span class="legend-item"><span class="legend-dot transit"></span> Hub</span>
+              <span class="legend-item"><span class="legend-line route"></span> Shortest Route</span>
+            </div>
+          </div>
+          <div class="canvas-container">
+            <canvas id="cityMapCanvas" width="760" height="460"></canvas>
+            <div id="canvasTooltip" class="canvas-tooltip" style="display:none;"></div>
+          </div>
+          <div class="map-footer">
+            <span id="routeSummaryText" class="route-summary">Click 'Run Auto-Match' or a pickup card to visualize Dijkstra's shortest path traversal.</span>
+          </div>
+        </div>
+
+        <!-- Route & Match Details Panel -->
+        <div class="match-info-card">
+          <h3 class="panel-subtitle">Match Intelligence &bull; Dijkstra Output</h3>
+          <div id="matchOutputArea">
+            <div class="empty-state">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <p>Ready to match surplus food with the optimal partner shelter.</p>
+              <span class="hint-text">Evaluates donor proximity, remaining NGO capacity, and graph edge weights in O((V + E) log V).</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: PICKUP QUEUE (FIFO) -->
+    <section id="pickupSection" class="content-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Dispatch &amp; Pickup Queue</h2>
+          <p class="section-desc">Managed by a custom <strong>FIFO Queue</strong>. Drivers and volunteers pick up matched orders in strict arrival sequence.</p>
+        </div>
+        <button class="btn btn-success" id="completePickupBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6 9 17l-5-5"/></svg>
+          <span>Complete Next Pickup (Dequeue)</span>
+        </button>
+      </div>
+
+      <div class="queue-container">
+        <div class="queue-track-label">
+          <span class="track-tag front">Front (Next Out &bull; Dequeue)</span>
+          <span class="track-tag rear">Rear (Newest Match &bull; Enqueue)</span>
+        </div>
+        <div id="pickupQueueList" class="queue-cards-wrapper">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: DONORS & NGOS DIRECTORY -->
+    <section id="partnersSection" class="content-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Community Partners Directory</h2>
+          <p class="section-desc">Stored in custom <strong>Hash Tables</strong> with separate chaining for O(1) instantaneous record lookup.</p>
+        </div>
+        <div class="header-btns">
+          <button class="btn btn-outline" id="openAddDonorModalBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            <span>Register Donor</span>
+          </button>
+          <button class="btn btn-outline" id="openAddNgoModalBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+            <span>Register NGO</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="directory-tabs">
+        <button class="dir-tab active" data-tab="ngos">Partner NGOs (<span id="dirNgoCount">5</span>)</button>
+        <button class="dir-tab" data-tab="donors">Food Donors (<span id="dirDonorCount">5</span>)</button>
+      </div>
+
+      <!-- NGOs Grid -->
+      <div id="ngosGrid" class="cards-grid directory-view">
+        <!-- Rendered dynamically via JS -->
+      </div>
+
+      <!-- Donors Grid -->
+      <div id="donorsGrid" class="cards-grid directory-view" style="display:none;">
+        <!-- Rendered dynamically via JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 6: SEARCH & SORT PLAYGROUND (MERGE SORT & BINARY SEARCH) -->
+    <section id="searchSection" class="content-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Search &amp; Algorithmic Explorer</h2>
+          <p class="section-desc">Demonstrates <strong>Binary Search</strong> on surplus food quantities in <strong>O(log N)</strong> time after pre-sorting via <strong>Merge Sort</strong>.</p>
+        </div>
+      </div>
+
+      <div class="search-playground-card">
+        <div class="search-mode-selector">
+          <label class="radio-pill">
+            <input type="radio" name="searchMode" value="exact" checked>
+            <span>Exact Quantity Match</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="searchMode" value="range">
+            <span>Quantity Range [Min, Max]</span>
+          </label>
+          <label class="radio-pill">
+            <input type="radio" name="searchMode" value="closest">
+            <span>Closest Batch Fit (NGO Storage Match)</span>
+          </label>
+        </div>
+
+        <div class="search-input-bar">
+          <div id="singleTargetInputGroup" class="input-inline">
+            <label for="searchTargetQty">Target Quantity (kg):</label>
+            <input type="number" id="searchTargetQty" class="text-input" placeholder="e.g. 35" value="35" min="1" step="1">
+          </div>
+
+          <div id="rangeInputGroup" class="input-inline" style="display:none;">
+            <label for="searchMinQty">Min (kg):</label>
+            <input type="number" id="searchMinQty" class="text-input" placeholder="Min" value="20" min="0">
+            <label for="searchMaxQty">Max (kg):</label>
+            <input type="number" id="searchMaxQty" class="text-input" placeholder="Max" value="60" min="0">
+          </div>
+
+          <button id="executeBinarySearchBtn" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <span>Execute Binary Search</span>
+          </button>
+        </div>
+
+        <!-- Binary Search Results & Computational Details -->
+        <div id="searchAnalyticsArea" class="search-analytics-box">
+          <div class="analytics-header">
+            <span class="badge-dsa">Binary Search: O(log N) comparisons</span>
+            <span id="searchResultSummary" class="analytics-summary">Run a query to inspect binary search bounds.</span>
+          </div>
+          <div id="searchResultsList" class="search-results-table">
+            <!-- Results populated here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 7: DONATION HISTORY LOG (SINGLY LINKED LIST) -->
+    <section id="historySection" class="content-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Audit Trail &amp; Donation History Log</h2>
+          <p class="section-desc">Chronological append-free audit record maintained via a <strong>Singly Linked List</strong>. Newest transactions are prepended to the head in <strong>O(1)</strong> time.</p>
+        </div>
+      </div>
+
+      <div class="history-card">
+        <div class="history-meta-bar">
+          <span class="dsa-badge">Singly Linked List Head &rarr; Tail Traversal</span>
+          <span class="history-count">Total Logged Events: <strong id="historyRecordCount">0</strong></span>
+        </div>
+        <div id="historyTimeline" class="timeline">
+          <!-- Timeline entries rendered dynamically via JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <p><strong>Food Waste Reduction &amp; Donation Coordinator</strong> &bull; Complete College DSA Project</p>
+      <p class="footer-meta">Built with pure Python 3 + Flask &bull; Core logic powered by 8 custom data structures implemented from scratch.</p>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- MODALS -->
+  <!-- ========================================================================= -->
+
+  <!-- Modal: Add Surplus Food -->
+  <div id="addFoodModal" class="modal-overlay" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>List Surplus Food Batch</h3>
+        <button class="close-modal-btn" data-close="addFoodModal">&times;</button>
+      </div>
+      <form id="addFoodForm">
+        <div class="form-group">
+          <label for="foodNameInput">Food Item Name *</label>
+          <input type="text" id="foodNameInput" class="text-input" placeholder="e.g. Prepared Rice Bowls, Fresh Apples" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="foodDonorSelect">Donating Entity (Hash Table) *</label>
+            <select id="foodDonorSelect" class="select-input" required>
+              <!-- Filled via JS -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="foodCategorySelect">Category</label>
+            <select id="foodCategorySelect" class="select-input">
+              <option value="Prepared Meals">Prepared Meals</option>
+              <option value="Cooked Meals">Cooked Meals</option>
+              <option value="Bakery">Bakery</option>
+              <option value="Produce">Produce / Fruits &amp; Veggies</option>
+              <option value="Dairy">Dairy</option>
+              <option value="Packaged Goods">Packaged Goods</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="foodQtyInput">Quantity (kg) *</label>
+            <input type="number" id="foodQtyInput" class="text-input" placeholder="e.g. 25" min="1" step="0.5" required>
+          </div>
+          <div class="form-group">
+            <label for="foodExpiryInput">Expiry Time Remaining (Hours) *</label>
+            <input type="number" id="foodExpiryInput" class="text-input" placeholder="e.g. 3.5" min="0.5" step="0.5" required>
+            <small class="form-hint">&lt; 6h = Urgent priority in Min-Heap</small>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" data-close="addFoodModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">List &amp; Enqueue to Heap</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Donor -->
+  <div id="addDonorModal" class="modal-overlay" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Register Food Donor</h3>
+        <button class="close-modal-btn" data-close="addDonorModal">&times;</button>
+      </div>
+      <form id="addDonorForm">
+        <div class="form-group">
+          <label for="donorNameInput">Organization / Business Name *</label>
+          <input type="text" id="donorNameInput" class="text-input" placeholder="e.g. City Harvest Bakery" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="donorLocationSelect">Location / Zone *</label>
+            <select id="donorLocationSelect" class="select-input" required>
+              <option value="Downtown Central">Downtown Central</option>
+              <option value="North End Market">North End Market</option>
+              <option value="Midtown Boulevard">Midtown Boulevard</option>
+              <option value="East Suburbs">East Suburbs</option>
+              <option value="West University Campus">West University Campus</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="donorTypeInput">Establishment Type</label>
+            <input type="text" id="donorTypeInput" class="text-input" placeholder="e.g. Restaurant, Bakery, Supermarket">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="donorContactInput">Contact Phone / Email</label>
+          <input type="text" id="donorContactInput" class="text-input" placeholder="+1 (555) 000-0000">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" data-close="addDonorModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Register Donor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add NGO -->
+  <div id="addNgoModal" class="modal-overlay" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Register Partner NGO / Shelter</h3>
+        <button class="close-modal-btn" data-close="addNgoModal">&times;</button>
+      </div>
+      <form id="addNgoForm">
+        <div class="form-group">
+          <label for="ngoNameInput">NGO / Charity Name *</label>
+          <input type="text" id="ngoNameInput" class="text-input" placeholder="e.g. Community Meals Foundation" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ngoLocationSelect">Shelter Location / Hub *</label>
+            <select id="ngoLocationSelect" class="select-input" required>
+              <option value="Old Town Haven">Old Town Haven</option>
+              <option value="Harbor District">Harbor District</option>
+              <option value="South Riverside">South Riverside</option>
+              <option value="Civic Center">Civic Center</option>
+              <option value="Pine Hills">Pine Hills</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="ngoCapacityInput">Storage / Meal Capacity (kg) *</label>
+            <input type="number" id="ngoCapacityInput" class="text-input" placeholder="e.g. 150" min="10" step="5" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ngoServesInput">Target Beneficiaries</label>
+          <input type="text" id="ngoServesInput" class="text-input" placeholder="e.g. Unhoused families, elderly, youth center">
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" data-close="addNgoModal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Register NGO</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Priority Heap Visualizer -->
+  <div id="heapModal" class="modal-overlay" style="display:none;">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <div>
+          <h3>Min-Heap Priority Queue &bull; Live Tree Structure</h3>
+          <p class="modal-desc">Smallest expiry time always bubbles to index 0 (Root). Peek is O(1); Push/Pop is O(log N).</p>
+        </div>
+        <button class="close-modal-btn" data-close="heapModal">&times;</button>
+      </div>
+      <div id="heapVisualizerContent" class="heap-modal-body">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Viva DSA Architecture & Guide -->
+  <div id="dsaGuideModal" class="modal-overlay" style="display:none;">
+    <div class="modal-card modal-large">
+      <div class="modal-header">
+        <div>
+          <h3>College DSA Project &bull; Architectural Specification</h3>
+          <p class="modal-desc">Comprehensive reference of all 8 custom data structures, time complexities, and design rationale.</p>
+        </div>
+        <button class="close-modal-btn" data-close="dsaGuideModal">&times;</button>
+      </div>
+      <div class="dsa-spec-body">
+        <div class="spec-grid">
+          <div class="spec-card">
+            <div class="spec-card-head">
+              <span class="spec-num">1</span>
+              <h4>Min-Heap (Priority Queue)</h4>
+            </div>
+            <p><strong>File:</strong> <code>dsa/min_heap.py</code></p>
+            <p><strong>Where used:</strong> Food expiry urgency ordering. Peek at most critical batch in O(1).</p>
+            <p><strong>Complexities:</strong> Peek: O(1) &bull; Push: O(log N) &bull; Pop: O(log N)</p>
+            <p class="spec-rationale"><em>Why:</em> Surplus food is perishable; linear scan O(N) or continuous sorting O(N log N) is wasteful. Min-heap guarantees optimal real-time priority.</p>
+          </div>
+
+          <div class="spec-card">
+            <div class="spec-card-head">
+              <span class="spec-num">2</span>
+              <h4>Hash Table with Chaining</h4>
+            </div>
+            <p><strong>File:</strong> <code>dsa/hash_table.py</code></p>
+            <p><strong>Where used:</strong> Fast O(1) lookup of Donors, NGOs, and Food batches by unique IDs.</p>
+            <p><strong>Complexities:</strong> Average: O(1) Get / Put / Remove &bull; Worst: O(N)</p>
+            <p class="spec-rationale"><em>Why:</em> Custom DJB2 hashing with separate chaining eliminates slow linear scans when querying entity properties during matching.</p>
+          </div>
+
+          <div class="spec-card">
+            <div class="spec-card-head">
+              <span class="spec-num">3</span>
+              <h4>Singly Linked List</h4>
+            </div>
+            <p><strong>File:</strong> <code>dsa/linked_list.py</code></p>
+            <p><strong>Where used:</strong> Chronological donation activity history and audit log.</p>
+            <p><strong>Complexities:</strong> Prepend: O(1) &bull; Traversal: O(N) &bull; Head Deletion: O(1)</p>
+            <p class="spec-rationale"><em>Why:</em> Prepending new events to head is strictly O(1) with zero array-shifting memory overhead.</p>
+          </div>
+
+          <div class="spec-card">
+            <div class="spec-card-head">
+              <span class="spec-num">4</span>
+              <h4>FIFO Queue</h4>
+            </div>
+            <p><strong>File:</strong> <code>dsa/queue.py</code></p>
+            <p><strong>Where used:</strong> Pending pickup and driver transport dispatches.</p>
+            <p><strong>Complexities:</strong> Enqueue: O(1) &bull; Dequeue: O(1) &bull; Peek: O(1)</p>
+            <p class="spec-rationale"><em>Why:</em> Fairness discipline: earliest scheduled pickups must be dispatched first, avoiding food sitting idle.</p>
+          </div>
+
+          <div class="spec-card">
+            <div class="spec-card-head">
+              <span class="spec-num">5</span>
+              <h4>LIFO Stack</h4>
+            </div>
+            <p><strong>File:</strong> <code>dsa/stack.py</code></p>
+            <p><strong>Where used:</strong> Undo the last state-altering action (food entry, auto-match, pickup).</p>
+            <p><strong>Complexities:</strong> Push: O(1) &bull; Pop: O(1) &bull; Peek: O(1)</p>
+            <p class="spec-rationale"><em>Why:</em> LIFO ordering is mathematically the exact mirror of chronological execution, enabling clean atomic rollback.</p>
+          </div>
+
+          <div class="spec-card">
+            <div class="spec-card-head">
+              <span class="spec-num">6</span>
+              <h4>Graph + Dijkstra's Algorithm</h4>
+            </div>
+            <p><strong>File:</strong> <code>dsa/graph.py</code></p>
+            <p><strong>Where used:</strong> Finding closest eligible NGO to donor along city road network.</p>
+            <p><strong>Complexities:</strong> Dijkstra: O((V + E) log V) with Min-Heap priority queue.</p>
+            <p class="spec-rationale"><em>Why:</em> Physical road distances dictate transit time and delivery freshness. Adjacency list is space-optimal (O(V+E)).</p>
+          </div>
+
+          <div class="spec-card">
+            <div class="spec-card-head">
+              <span class="spec-num">7</span>
+              <h4>Merge Sort</h4>
+            </div>
+            <p><strong>File:</strong> <code>dsa/merge_sort.py</code></p>
+            <p><strong>Where used:</strong> Multi-attribute inventory ordering (by expiry or batch quantity).</p>
+            <p><strong>Complexities:</strong> Guaranteed O(N log N) worst-case &bull; Stable</p>
+            <p class="spec-rationale"><em>Why:</em> Unlike Quicksort (O(N^2) worst case), Merge Sort never degrades and preserves relative FIFO order for identical keys.</p>
+          </div>
+
+          <div class="spec-card">
+            <div class="spec-card-head">
+              <span class="spec-num">8</span>
+              <h4>Binary Search</h4>
+            </div>
+            <p><strong>File:</strong> <code>dsa/binary_search.py</code></p>
+            <p><strong>Where used:</strong> Searching sorted inventory by quantity (exact, range, closest NGO fit).</p>
+            <p><strong>Complexities:</strong> O(log N) comparisons vs O(N) linear scan.</p>
+            <p class="spec-rationale"><em>Why:</em> Logarithmic search allows instant matching against NGO capacity requests without iterating every item.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Center -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
