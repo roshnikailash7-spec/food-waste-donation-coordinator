@@ -1,5 +1,5 @@
 /**
- * Food Waste Reduction & Donation Coordinator (College DSA Project)
+ * Food Waste Reduction & Donation Coordinator (DSA Project)
  * Frontend Controller & Canvas Route Visualizer
  * All core algorithmic logic resides in custom Python DSA modules (dsa/).
  */
