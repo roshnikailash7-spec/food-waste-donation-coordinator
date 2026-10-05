@@ -122,8 +122,12 @@ def save_data():
         "graph_nodes": graph_dict["nodes"],
         "graph_edges": graph_dict["edges"]
     }
-    with open(DATA_FILE, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2)
+    try:
+        with open(DATA_FILE, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2)
+    except OSError:
+        pass
+
 
 
 def add_history_entry(action_type, title, description, badge="info"):
